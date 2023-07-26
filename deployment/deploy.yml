@@ -1,0 +1,24 @@
+---
+- hosts: host_vms
+  become: true
+
+  tasks:
+    - name: Copy Flask app files to target VM
+      copy:
+        src: /path/to/src/project  
+        dest: /path/to/target  
+      tags:
+        - flask_app_files
+
+    - name: Install packages required by the app
+      pip:
+        requirements: /path/to/src/project/requirements.txt 
+      tags:
+        - python_dependencies
+
+    - name: Start Flask app using Gunicorn
+      command: gunicorn main:app -b 0.0.0.0:5000 --daemon
+      args:
+        chdir: /path/to/src/project
+      tags:
+        - start_flask_app

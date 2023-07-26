@@ -1,0 +1,27 @@
+# This file is not complete, it is just a sample of how to deploy teh app and nginx and it will be completed
+
+- hosts: host_vms
+  become: true
+
+  tasks:
+    - name: Copy Flask app files to target VM
+      copy:
+        src:  /path/to/src/project  
+        dest: /path/to/target   
+      tags:
+        - flask_app_files
+
+    - name: Install packages required by the app
+      pip:
+        requirements: /path/to/src/project/requirements.txt 
+      tags:
+        - python_dependencies
+
+
+    - name: Install uWSGI
+      pip:
+        name: uwsgi
+      tags:
+        - uwsgi
+
+#complete the tasks for WSGI and nginx

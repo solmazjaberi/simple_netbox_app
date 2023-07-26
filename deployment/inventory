@@ -1,0 +1,4 @@
+[host_vms]
+
+ansible_target1
+ansible_target2
